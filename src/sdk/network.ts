@@ -7,6 +7,11 @@ import type {
 import { NSJSONWritingOptions, NSJSONReadingOptions } from "../api"
 import { lang } from "./lang"
 
+type XOR<T, U> = T | U extends object
+  ? (Without<T, U> & U) | (Without<U, T> & T)
+  : T | U
+type Without<T, U> = { [P in Exclude<keyof T, keyof U>]?: never }
+
 class Response {
   data: NSData
   constructor(data: NSData) {

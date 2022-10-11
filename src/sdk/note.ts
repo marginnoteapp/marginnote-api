@@ -203,7 +203,7 @@ async function removeCommentButLinkTag(
   node: MbBookNote,
   // 不删除
   filter: (comment: noteComment) => boolean,
-  f?: (node: MbBookNote) => MaybePromise<void>
+  f?: (node: MbBookNote) => Promise<void> | void
 ) {
   const reservedComments = [] as string[]
   const len = node.comments.length
