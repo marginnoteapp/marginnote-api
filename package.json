@@ -2,7 +2,7 @@
   "name": "marginnote",
   "description": "Type definitions for the latest MarginNote API.",
   "license": "MIT",
-  "version": "0.9.7",
+  "version": "0.9.8",
   "repository": "https://github.com/marginnoteapp/marginnote-api",
   "author": "MarginNote<https://github.com/marginnoteapp>",
   "main": "dist/index.js",
