@@ -1,3 +1,9 @@
+import {
+  MbBookNote,
+  DirectionOfSelection,
+  DocumentController
+} from "./MarginNote"
+
 export * from "./Foundation"
 export * from "./MarginNote"
 export * from "./UIKit"
@@ -6,8 +12,8 @@ declare global {
   const JSB: {
     defineClass(
       declaration: string,
-      instanceMembers?: object,
-      staticMembers?: object
+      instanceMethods?: object,
+      classMethods?: object
     ): any
     require(name: string): any
     log(format: string, arguments: Array<string> | string): void

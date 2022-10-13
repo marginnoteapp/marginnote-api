@@ -17,6 +17,8 @@ export declare type NSIndexPath = {
   section: number
 }
 
+export declare type NSNull = typeof NSNull
+
 declare global {
   const NSIndexPath: {
     indexPathForRowInSection(row: number, section: number): NSIndexPath

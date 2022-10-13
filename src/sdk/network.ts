@@ -104,7 +104,7 @@ export function fetch(
         // It's strange, I can't get the res property
         // if (err.localizedDescription) reject(err.localizedDescription)
         if (data.length() == 0) reject(lang.not_receive)
-        resolve(new Response(data as NSData))
+        resolve(new Response(data))
       }
     )
   })

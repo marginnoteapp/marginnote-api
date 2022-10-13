@@ -7,7 +7,7 @@ import { escapeURLParam, unique } from "./utils"
  * @param f f:()=>void, the action need to be cancelled.
  * @returns void
  */
-function undoGrouping(f: () => void) {
+export function undoGrouping(f: () => void) {
   if (self.notebookid) {
     UndoManager.sharedInstance().undoGrouping(
       String(Date.now()),
@@ -22,7 +22,7 @@ function undoGrouping(f: () => void) {
  * @param f f:()=>void, the action need to be cancelled.
  * @returns void
  */
-function undoGroupingWithRefresh(f: () => void) {
+export function undoGroupingWithRefresh(f: () => void) {
   undoGrouping(f)
   RefreshAfterDBChange()
 }
@@ -31,7 +31,7 @@ function undoGroupingWithRefresh(f: () => void) {
  * Refresh the view after database change.
  * @returns void
  */
-function RefreshAfterDBChange() {
+export function RefreshAfterDBChange() {
   if (self.notebookid) {
     MN.db.setNotebookSyncDirty(self.notebookid)
     postNotification("RefreshAfterDBChange", {
@@ -45,7 +45,7 @@ function RefreshAfterDBChange() {
  * @returns Array which contains the infomation of the selected nodes.
 
  */
-function getSelectNodes(): MbBookNote[] {
+export function getSelectNodes(): MbBookNote[] {
   const MindMapNodes: any[] | undefined =
     MN.studyController().notebookController.mindmapView.selViewLst
   return MindMapNodes?.length ? MindMapNodes.map(item => item.note.note) : []
@@ -56,7 +56,7 @@ function getSelectNodes(): MbBookNote[] {
  * @param node The card that you want to get its children node information.
  * @returns MbBookNote[] - An array which contains all the children nodes.
  */
-function getNodeTree(node: MbBookNote) {
+export function getNodeTree(node: MbBookNote) {
   const DFS = (
     nodes: MbBookNote[],
     level = 0,
@@ -100,7 +100,7 @@ function getNodeTree(node: MbBookNote) {
  * @param node The card that you want to get its ancestor nodes information.
  * @returns MbBookNote[] - An array which contains all the ancestor nodes.
  */
-function getAncestorNodes(node: MbBookNote): MbBookNote[] {
+export function getAncestorNodes(node: MbBookNote): MbBookNote[] {
   const up = (node: MbBookNote, ancestorNodes: MbBookNote[]) => {
     if (node.parentNote) {
       ancestorNodes = up(node.parentNote, [...ancestorNodes, node.parentNote])
@@ -115,7 +115,7 @@ function getAncestorNodes(node: MbBookNote): MbBookNote[] {
  * @param node The card that you want to get its excerptions.
  * @returns Array Each element of the array contains one excerpt note's info.
  */
-function getExcerptNotes(node: MbBookNote): MbBookNote[] {
+export function getExcerptNotes(node: MbBookNote): MbBookNote[] {
   return node.comments.reduce(
     (acc, cur) => {
       cur.type == "LinkNote" && acc.push(MN.db.getNoteById(cur.noteid)!)
@@ -130,7 +130,7 @@ function getExcerptNotes(node: MbBookNote): MbBookNote[] {
  * @param pic {@link MNPic}
  * @returns Base64 code of the picture.
  */
-function exportPic(pic: MNPic) {
+export function exportPic(pic: MNPic) {
   const base64 = MN.db.getMediaByHash(pic.paint)?.base64Encoding()
   return base64
     ? {
@@ -149,7 +149,7 @@ function exportPic(pic: MNPic) {
  * @param mdsize Text after OCR by default.
  * @returns Dict of excerpt text.
  */
-function getExcerptText(node: MbBookNote, highlight = true) {
+export function getExcerptText(node: MbBookNote, highlight = true) {
   const res = {
     text: [] as string[],
     ocr: [] as string[],
@@ -187,7 +187,10 @@ function getExcerptText(node: MbBookNote, highlight = true) {
  * @param comment The comment that you want to get its index.
  * @returns Number The index of the comment.
  */
-function getCommentIndex(note: MbBookNote, comment: MbBookNote | string) {
+export function getCommentIndex(
+  note: MbBookNote,
+  comment: MbBookNote | string
+) {
   const comments = note.comments
   for (let i = 0; i < comments.length; i++) {
     const _comment = comments[i]
@@ -199,7 +202,7 @@ function getCommentIndex(note: MbBookNote, comment: MbBookNote | string) {
   return -1
 }
 
-async function removeCommentButLinkTag(
+export async function removeCommentButLinkTag(
   node: MbBookNote,
   // 不删除
   filter: (comment: noteComment) => boolean,
@@ -227,7 +230,11 @@ async function removeCommentButLinkTag(
  * @param highlight default true, will retention highlight symbol, **.
  * @returns string
  */
-function getAllText(node: MbBookNote, separator = "\n", highlight = true) {
+export function getAllText(
+  node: MbBookNote,
+  separator = "\n",
+  highlight = true
+) {
   return [
     ...getExcerptText(node, highlight).text,
     ...getAllCommnets(node).text,
@@ -240,7 +247,7 @@ function getAllText(node: MbBookNote, separator = "\n", highlight = true) {
  * @param text The text that you want to remove the highlight symbol.
  * @returns Processed text.
  */
-function removeHighlight(text: string) {
+export function removeHighlight(text: string) {
   return text.replace(/\*\*/g, "")
 }
 
@@ -250,7 +257,7 @@ function removeHighlight(text: string) {
  * @param hash True by default. If false, will delete "#" in the tag.
  * @returns Array of strings. Each element is a tag.
  */
-function getAllTags(node: MbBookNote, hash = true) {
+export function getAllTags(node: MbBookNote, hash = true) {
   const tags = node.comments.reduce((acc, cur) => {
     if (cur.type == "TextNote" || cur.type == "HtmlNote") {
       acc.push(...cur.text.split(/\s/).filter(k => k.startsWith("#")))
@@ -265,7 +272,7 @@ function getAllTags(node: MbBookNote, hash = true) {
  * @param node The card that you want to get all kind of its comments.
  * @returns Resource dict.
  */
-function getAllCommnets(node: MbBookNote) {
+export function getAllCommnets(node: MbBookNote) {
   const res = {
     text: [] as string[],
     base64: [] as string[],
@@ -295,7 +302,7 @@ function getAllCommnets(node: MbBookNote) {
  * @param tags The tags that you want to add.
  * @param force Force merging tags, even if no tags are added
  */
-function addTags(node: MbBookNote, tags: string[], force = false) {
+export function addTags(node: MbBookNote, tags: string[], force = false) {
   const existingTags: string[] = []
   const tagCommentIndex: number[] = []
   node.comments.forEach((comment, index) => {
@@ -326,7 +333,7 @@ function addTags(node: MbBookNote, tags: string[], force = false) {
   return tagLine
 }
 
-function modifyNodeTitle(
+export function modifyNodeTitle(
   node: MbBookNote,
   titles: string | string[],
   merge = false
@@ -343,7 +350,7 @@ function modifyNodeTitle(
   }
 }
 
-function appendTextComment(node: MbBookNote, ...comments: string[]) {
+export function appendTextComment(node: MbBookNote, ...comments: string[]) {
   comments.length &&
     comments.forEach(comment => {
       comment && node.appendTextComment(comment)
@@ -368,25 +375,4 @@ export function getDocURL() {
   return note?.noteId
     ? `marginnote3app://note/${note.noteId}`
     : `marginnote3app://notebook/${notebook.topicId}`
-}
-
-export {
-  getSelectNodes,
-  getNodeTree,
-  getAncestorNodes,
-  getExcerptNotes,
-  getExcerptText,
-  getCommentIndex,
-  getAllText,
-  undoGrouping,
-  undoGroupingWithRefresh,
-  RefreshAfterDBChange,
-  addTags,
-  getAllTags,
-  getAllCommnets,
-  removeHighlight,
-  exportPic,
-  modifyNodeTitle,
-  removeCommentButLinkTag,
-  appendTextComment
 }
