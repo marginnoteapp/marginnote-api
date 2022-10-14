@@ -1,4 +1,9 @@
-import type { Timer, NSTimer } from "../api"
+import type { NSTimer } from "../api"
+
+export declare type Timer = {
+  invalidate: () => void
+}
+
 export function delay(sec: number) {
   return new Promise<NSTimer>(resolve =>
     NSTimer.scheduledTimerWithTimeInterval(sec, false, resolve)

@@ -2,21 +2,21 @@ import { JSExtensionLifeCycle } from "src/api"
 import { MN } from "./mn"
 
 export const console = {
-  log(obj: any, suffix = "normal") {
-    JSB.log(`${self.addon?.key ?? "marginnote"}-${suffix} %@`, obj)
+  log(obj: any, suffix = "normal", ...args: any[]) {
+    JSB.log(`${MN.currentAddon.key}-${suffix} %@`, obj)
   },
-  error(obj: any, suffix = "error") {
+  error(obj: any, suffix = "error", ...args: any[]) {
     JSB.log(
-      `${self.addon?.key ?? "marginnote"}-${suffix} %@`,
+      `${MN.currentAddon.key}-${suffix} %@`,
       String(obj) === "[object Object]"
         ? JSON.stringify(obj, undefined, 2)
         : String(obj)
     )
   },
   /** Unrelated to the real meaning, used for stringify objects */
-  assert(obj: any, suffix = "normal") {
+  assert(obj: any, suffix = "normal", ...args: any[]) {
     JSB.log(
-      `${self.addon?.key ?? "marginnote"}-${suffix} %@`,
+      `${MN.currentAddon.key}-${suffix} %@`,
       JSON.stringify(obj, undefined, 2)
     )
   }

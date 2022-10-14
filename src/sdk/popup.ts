@@ -1,11 +1,12 @@
 import type { UIAlertView } from "../api"
 import { UIAlertViewStyle } from "../api"
 import { lang } from "./lang"
+import { MN } from "./mn"
 import { byteSlice } from "./utils"
 
 export function popup<T>(
   {
-    title = self.addon?.title ?? "MarginNote",
+    title = MN.currentAddon.title,
     message,
     type = UIAlertViewStyle.Default,
     buttons = [lang.sure],
@@ -62,15 +63,12 @@ export function popup<T>(
   )
 }
 
-export async function confirm(
-  title = self.addon?.title ?? "MarginNote",
-  message = ""
-) {
+export async function confirm(title = MN.currentAddon.title, message = "") {
   const { option } = await popup(
     {
       title,
       message,
-      buttons: ["确定"],
+      buttons: [lang.sure],
       multiLine: false,
       canCancel: true
     },
@@ -83,8 +81,8 @@ export async function confirm(
 
 export async function select(
   parts: string[],
-  title = self.addon?.title ?? "MarginNote",
-  message = "选择你想要的",
+  title = MN.currentAddon.title,
+  message = lang.make_your_choice,
   canCancel = false
 ) {
   const { option } = await popup(
@@ -104,8 +102,8 @@ export async function select(
 
 export async function selectIndex(
   parts: string[],
-  title = self.addon?.title ?? "MarginNote",
-  message = "选择你想要的",
+  title = MN.currentAddon.title,
+  message = lang.make_your_choice,
   canCancel = false
 ) {
   const { option } = await popup(

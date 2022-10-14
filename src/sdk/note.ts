@@ -8,10 +8,10 @@ import { escapeURLParam, unique } from "./utils"
  * @returns void
  */
 export function undoGrouping(f: () => void) {
-  if (self.notebookid) {
+  if (MN.currnetNotebookid) {
     UndoManager.sharedInstance().undoGrouping(
       String(Date.now()),
-      self.notebookid,
+      MN.currnetNotebookid,
       f
     )
   }
@@ -32,10 +32,10 @@ export function undoGroupingWithRefresh(f: () => void) {
  * @returns void
  */
 export function RefreshAfterDBChange() {
-  if (self.notebookid) {
-    MN.db.setNotebookSyncDirty(self.notebookid)
+  if (MN.currnetNotebookid) {
+    MN.db.setNotebookSyncDirty(MN.currnetNotebookid)
     postNotification("RefreshAfterDBChange", {
-      topicid: self.notebookid
+      topicid: MN.currnetNotebookid
     })
   }
 }
@@ -47,7 +47,7 @@ export function RefreshAfterDBChange() {
  */
 export function getSelectNodes(): MbBookNote[] {
   const MindMapNodes: any[] | undefined =
-    MN.studyController().notebookController.mindmapView.selViewLst
+    MN.notebookController.mindmapView.selViewLst
   return MindMapNodes?.length ? MindMapNodes.map(item => item.note.note) : []
 }
 
@@ -358,20 +358,20 @@ export function appendTextComment(node: MbBookNote, ...comments: string[]) {
 }
 
 export function getDocURL() {
-  if (MN.studyController().studyMode !== StudyMode.study) return
-  const notebook = MN.db.getNotebookById(self.notebookid)!
-  const note =
-    MN.studyController().notebookController.mindmapView.mindmapNodes?.reduce(
-      (acc, k) => {
-        if (k.note.docMd5 === self.docmd5 && k.note.modifiedDate) {
-          if (acc?.modifiedDate) {
-            if (acc.modifiedDate < k.note.modifiedDate) return k.note
-          } else return k.note
-        }
-        return acc
-      },
-      undefined as undefined | MbBookNote
-    )
+  if (!MN.currnetNotebookid || MN.studyController.studyMode !== StudyMode.study)
+    return
+  const notebook = MN.db.getNotebookById(MN.currnetNotebookid)!
+  const note = MN.notebookController.mindmapView.mindmapNodes?.reduce(
+    (acc, k) => {
+      if (k.note.docMd5 === MN.currentDocmd5 && k.note.modifiedDate) {
+        if (acc?.modifiedDate) {
+          if (acc.modifiedDate < k.note.modifiedDate) return k.note
+        } else return k.note
+      }
+      return acc
+    },
+    undefined as undefined | MbBookNote
+  )
   return note?.noteId
     ? `marginnote3app://note/${note.noteId}`
     : `marginnote3app://notebook/${notebook.topicId}`

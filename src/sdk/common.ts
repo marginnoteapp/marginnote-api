@@ -2,15 +2,19 @@ import type { NSNull } from "src/api"
 import { lang } from "./lang"
 import { MN } from "./mn"
 
-export function showHUD(message: string, duration = 2, window = self.window) {
+export function showHUD(
+  message: string,
+  duration = 2,
+  window = MN.currentWindow
+) {
   MN.app.showHUD(message, window, duration)
 }
 
 export const HUDController = {
-  show(message: string, window = self.window) {
+  show(message: string, window = MN.currentWindow) {
     MN.app.waitHUDOnView(message, window)
   },
-  hidden(window = self.window) {
+  hidden(window = MN.currentWindow) {
     MN.app.stopWaitHUDOnView(window)
   }
 }
@@ -49,8 +53,8 @@ export function postNotification(key: string, userInfo: any) {
   )
 }
 
-export function isThisWindow(sender: any, window = self.window) {
-  return MN.app.checkNotifySenderInWindow(sender, window)
+export function isThisWindow(sender: any) {
+  return MN.app.checkNotifySenderInWindow(sender, MN.currentWindow)
 }
 
 export function isNSNull(obj: any): obj is NSNull {

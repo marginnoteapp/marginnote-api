@@ -1,9 +1,3 @@
-import {
-  MbBookNote,
-  DirectionOfSelection,
-  DocumentController
-} from "./MarginNote"
-
 export * from "./Foundation"
 export * from "./MarginNote"
 export * from "./UIKit"
@@ -24,8 +18,4 @@ declare global {
 
 export declare type DictObj = {
   [k: string]: any
-}
-
-export declare type Timer = {
-  invalidate: () => void
 }

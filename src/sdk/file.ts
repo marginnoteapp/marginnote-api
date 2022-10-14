@@ -61,7 +61,7 @@ export function saveTextFile(text: string, fileName: string, UTI: string) {
 export async function openFile(...uti: string[]) {
   // ["com.adobe.pdf"],
   return new Promise<string | undefined>(resolve => {
-    MN.app.openFileWithUTIs(uti, MN.studyController(), (path: string) => {
+    MN.app.openFileWithUTIs(uti, MN.studyController, (path: string) => {
       resolve(path)
     })
     resolve(undefined)
