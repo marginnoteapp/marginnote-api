@@ -48,9 +48,6 @@ export declare type UIPasteboard = {
   items?: Array<any>
   readonly name?: string
   /**
-   * @returns UIPasteboard*
-   */
-  /**
    * @returns NSArray*
    */
   pasteboardTypes(): Array<any>

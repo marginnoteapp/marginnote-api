@@ -5,13 +5,6 @@ function getVersion() {
   return "3.7.19"
 }
 
-const themeColor = {
-  Gray: UIColor.colorWithHexString("#414141"),
-  Default: UIColor.colorWithHexString("#FFFFFF"),
-  Dark: UIColor.colorWithHexString("#000000"),
-  Green: UIColor.colorWithHexString("#E9FBC7"),
-  Sepia: UIColor.colorWithHexString("#F5EFDC")
-}
 class MNAPP {
   get studyController() {
     return Application.sharedInstance().studyController(
@@ -32,7 +25,7 @@ class MNAPP {
     return Application.sharedInstance().focusWindow
   }
   get currentThemeColor(): UIColor {
-    return themeColor[Application.sharedInstance().currentTheme!]
+    return this.themeColor[Application.sharedInstance().currentTheme!]
   }
   get currentAddon() {
     return {
@@ -55,7 +48,13 @@ class MNAPP {
   readonly app = Application.sharedInstance()
   readonly db = Database.sharedInstance()
   readonly version = getVersion()
-  readonly themeColor = themeColor
+  readonly themeColor = {
+    Gray: UIColor.colorWithHexString("#414141"),
+    Default: UIColor.colorWithHexString("#FFFFFF"),
+    Dark: UIColor.colorWithHexString("#000000"),
+    Green: UIColor.colorWithHexString("#E9FBC7"),
+    Sepia: UIColor.colorWithHexString("#F5EFDC")
+  }
 }
 
 export const MN = new MNAPP()

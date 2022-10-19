@@ -43,15 +43,15 @@ export interface excerptPic extends MNPic {
  * @class MbBookNote
  * Get it by {@link MbBookNote.comment}
  */
-export type noteComment = textComment | htmlComment | linkComment | paintComment
+export type NoteComment = TextComment | HtmlComment | LinkComment | PaintComment
 
 /**
  * Basic Comment，when merging Note, title will be merged of this type
- * Another three types of comments are {@link htmlComment}, {@link textComment}, {@link linkComment}
+ * Another three types of comments are {@link HtmlComment}, {@link TextComment}, {@link LinkComment}
  * @class MbBookNote
  * Get it by {@link MbBookNote.comment}
  */
-export interface textComment {
+export interface TextComment {
   type: "TextNote"
   /**
    * Get the content of the comment
@@ -64,11 +64,11 @@ export interface textComment {
 }
 /**
  * Generate when html copied to note
- * Another three types of comments are {@link textComment}, {@link linkComment}, {@link paintComment}
+ * Another three types of comments are {@link TextComment}, {@link LinkComment}, {@link PaintComment}
  * @class MbBookNote
  * Get it by {@link MbBookNote.comment}
  */
-export interface htmlComment {
+export interface HtmlComment {
   type: "HtmlNote"
   /**
    * Size of the render image
@@ -94,47 +94,47 @@ export interface htmlComment {
 
 /**
  * Link text or picture Comments
- * Another three types of comments are {@link textComment}, {@link htmlComment}, {@link paintComment}
+ * Another three types of comments are {@link TextComment}, {@link HtmlComment}, {@link PaintComment}
  * @class MbBookNote
  * Get it by {@link MbBookNote.comment}
- * more detail see {@link linkComment_pic} and {@link linkComment_text}
+ * more detail see {@link LinkCommentPic} and {@link LinkCommentText}
  */
-export type linkComment = linkComment_text | linkComment_pic
+export type LinkComment = LinkCommentText | LinkCommentPic
 
 /**
  * Link text Comments
- * Another related interface is {@link linkComment_pic}, and makes {@link linkComment}
+ * Another related interface is {@link LinkCommentPic}, and makes {@link LinkComment}
  * @class MbBookNote
  * Get it by {@link MbBookNote.comment}
  */
-export interface linkComment_text {
+export interface LinkCommentText {
   type: "LinkNote"
   /**
    * NoteID of the note
    */
   noteid: string
   /**
-   * Text of the comment : {@link textComment.text}
+   * Text of the comment : {@link TextComment.text}
    */
-  q_htext: textComment["text"]
+  q_htext: TextComment["text"]
 }
 
 /**
  * Link picture Comments
- * Another related interface is {@link linkComment_text}, and makes {@link linkComment}
+ * Another related interface is {@link LinkCommentText}, and makes {@link LinkComment}
  * @class MbBookNote
  * Get it by {@link MbBookNote.comment}
  */
-export interface linkComment_pic {
+export interface LinkCommentPic {
   type: "LinkNote"
   /**
    * NoteID of the note
    */
   noteid: string
   /**
-   * Text of the comment : {@link textComment.text}
+   * Text of the comment : {@link TextComment.text}
    */
-  q_htext?: textComment["text"]
+  q_htext?: TextComment["text"]
   /**
    * Image of the comment : {@link MNPic}
    */
@@ -143,11 +143,11 @@ export interface linkComment_pic {
 
 /**
  * Picture comment
- * Another three types of comments are {@link textComment}, {@link htmlComment}, {@link linkComment}
+ * Another three types of comments are {@link TextComment}, {@link HtmlComment}, {@link LinkComment}
  * @class MbBookNote
  * Get it by {@link MbBookNote.comment}, inherit from {@link MNPic}
  */
-export interface paintComment extends MNPic {
+export interface PaintComment extends MNPic {
   type: "PaintNote"
 }
 
@@ -246,7 +246,7 @@ export declare class MbBookNote {
   /**
    * Comments of the note card, different from the excerptText
    */
-  readonly comments: noteComment[]
+  readonly comments: NoteComment[]
   /**
    * Parent-note ID, used to locate the parent note card
    */

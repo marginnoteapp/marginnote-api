@@ -22,9 +22,9 @@ export const console = {
   }
 }
 
-export function defineLifeCycelHandler(events: {
-  instanceMethods?: JSExtensionLifeCycle.InstanceMethods
-  classMethods?: JSExtensionLifeCycle.ClassMethods
+export function defineLifeCycleHandler(events: {
+  instanceMethods?: Partial<JSExtensionLifeCycle.InstanceMethods>
+  classMethods?: Partial<JSExtensionLifeCycle.ClassMethods>
 }) {
   return events
 }

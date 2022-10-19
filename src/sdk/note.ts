@@ -1,4 +1,4 @@
-import { MbBookNote, MNPic, noteComment, StudyMode } from "../api"
+import { StudyMode, MbBookNote, MNPic, NoteComment } from "../api"
 import { MN, postNotification } from "."
 import { escapeURLParam, unique } from "./utils"
 
@@ -45,7 +45,7 @@ export function RefreshAfterDBChange() {
  * @returns Array which contains the infomation of the selected nodes.
 
  */
-export function getSelectNodes(): MbBookNote[] {
+export function getSelectedNodes(): MbBookNote[] {
   const MindMapNodes: any[] | undefined =
     MN.notebookController.mindmapView.selViewLst
   return MindMapNodes?.length ? MindMapNodes.map(item => item.note.note) : []
@@ -205,7 +205,7 @@ export function getCommentIndex(
 export async function removeCommentButLinkTag(
   node: MbBookNote,
   // 不删除
-  filter: (comment: noteComment) => boolean,
+  filter: (comment: NoteComment) => boolean,
   f?: (node: MbBookNote) => Promise<void> | void
 ) {
   const reservedComments = [] as string[]
