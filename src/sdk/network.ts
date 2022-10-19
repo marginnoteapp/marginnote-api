@@ -43,6 +43,9 @@ function initRequest(
   url: string,
   options: RequestOptions
 ): NSMutableURLRequest {
+  url = url.trimStart()
+  if (!/^\w+:\/\/[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]/.test(url))
+    url = `https://${url}`
   const request = NSMutableURLRequest.requestWithURL(
     NSURL.URLWithString(encodeURI(url))
   )
