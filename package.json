@@ -1,8 +1,8 @@
 {
   "name": "marginnote",
-  "description": "Type definitions fr the latest MarginNote API. MarginNote Version: 3.7.19.",
+  "description": "Type definitions of the latest MarginNote API.",
   "license": "MIT",
-  "version": "0.9.12",
+  "version": "0.9.13",
   "repository": "https://github.com/marginnoteapp/marginnote-api",
   "author": "MarginNote<https://github.com/marginnoteapp>",
   "main": "dist/index.js",
@@ -17,5 +17,12 @@
   ],
   "devDependencies": {
     "tsup": "^6.2.3"
-  }
+  },
+  "keywords": [
+    "marginote",
+    "addon",
+    "plugin",
+    "typescript",
+    "api"
+  ]
 }

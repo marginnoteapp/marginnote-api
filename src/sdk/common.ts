@@ -43,7 +43,9 @@ export function evaluateJavaScript(webView: UIWebView, script: string) {
 
 export function openUrl(url: string) {
   url = url.trimStart()
-  if (!/^\w+:\/\/[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]/.test(url))
+  if (
+    !/^[\w-]+:\/\/[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]/.test(url)
+  )
     url = `https://${url}`
   MN.app.openURL(NSURL.URLWithString(encodeURI(url)))
 }

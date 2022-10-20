@@ -34,7 +34,10 @@ export function byteSlice(text: string, begin: number, ...rest: number[]) {
   return text.slice(...res)
 }
 
-export const unique = <T>(arr: T[]): T[] => Array.from(new Set(arr))
+export const unique = <T>(arr: T[]): T[] => {
+  if (arr.length <= 1) return arr
+  else return Array.from(new Set(arr))
+}
 
 export function escapeURLParam(param: string) {
   const replaceParams = [
