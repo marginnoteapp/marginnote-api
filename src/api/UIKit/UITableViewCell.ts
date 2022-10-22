@@ -1,4 +1,4 @@
-import { UIImageView, UILabel } from "."
+import { UIImageView } from "."
 import { NSIndexSet } from "../Foundation"
 
 export const enum UITableViewCellSelectionStyle {}

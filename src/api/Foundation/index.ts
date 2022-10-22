@@ -10,8 +10,6 @@ export declare type NSDictionary = any
 export declare type NSRange = any
 export declare type NSMutableArray<T = any> = Array<T>
 export declare type NSCharacterSet = any
-
-export declare type NSIndexSet = any
 export declare type NSIndexPath = {
   row: number
   section: number
@@ -40,3 +38,4 @@ export * from "./NSURLRequest"
 export * from "./NSOperationQueue"
 export * from "./NSValue"
 export * from "./NSUserDefaults"
+export * from "./NSIndexSet"

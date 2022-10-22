@@ -365,24 +365,39 @@ export class NodeNote {
     })
     return this
   }
+  /**
+   * Remove all comment but tag, link and also the filterd. tag and link will be sat at the end。
+   * @param filter not deleted
+   * @param f after deleted, before set tag and link
+   * @returns
+   */
   async removeCommentButLinkTag(
     // 不删除
     filter: (comment: NoteComment) => boolean,
     f?: (node: NodeNote) => Promise<void> | void
   ) {
-    const reservedComments = [] as string[]
-    const len = this.note.comments.length
-    this.note.comments.reverse().forEach((k, i) => {
-      if (
-        k.type == "TextNote" &&
-        (k.text.includes("marginnote3app://note/") || k.text.startsWith("#"))
-      ) {
-        reservedComments.push(k.text)
-        this.note.removeCommentByIndex(len - i - 1)
-      } else if (!filter(k)) this.note.removeCommentByIndex(len - i - 1)
+    const { removedIndex, linkTags } = this.note.comments.reduce(
+      (acc, comment, i) => {
+        if (
+          comment.type == "TextNote" &&
+          (comment.text.includes("marginnote3app://note/") ||
+            comment.text.startsWith("#"))
+        ) {
+          acc.linkTags.push(comment.text)
+          acc.removedIndex.unshift(i)
+        } else if (!filter(comment)) acc.removedIndex.unshift(i)
+        return acc
+      },
+      {
+        removedIndex: [] as number[],
+        linkTags: [] as string[]
+      }
+    )
+    removedIndex.forEach(k => {
+      this.note.removeCommentByIndex(k)
     })
     f && (await f(this))
-    this.appendTextComments(...reservedComments)
+    this.appendTextComments(...linkTags)
     return this
   }
 }

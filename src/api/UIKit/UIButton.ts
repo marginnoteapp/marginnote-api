@@ -1,4 +1,4 @@
-import { UIControl, UILabel, UIColor } from "."
+import { UIControl, UIColor } from "."
 
 export const enum UIButtonType {
   system = 0

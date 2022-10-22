@@ -19,10 +19,10 @@ export * from "./UIVIewController"
 export * from "./UIView"
 export * from "./UIGestureRecognizer"
 export * from "./UIWebView"
+export * from "./UILabel"
 
 export type UIWindow = any
 export type UILocalNotification = any
-export type UILabel = any
 export type UIImageView = any
 export type UITouch = any
 
