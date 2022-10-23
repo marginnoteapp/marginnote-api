@@ -1,24 +1,32 @@
 import { JSExtensionLifeCycle } from "src/api"
 import { MN } from "./mn"
 
-export const console = {
+export const dev = {
   log(obj: any, suffix = "normal", ...args: any[]) {
-    JSB.log(`${MN.currentAddon.key}-${suffix} %@`, obj)
+    if (self.useConsole)
+      console.log(obj, `${MN.currentAddon.key}-${suffix}`, ...args)
+    else JSB.log(`${MN.currentAddon.key}-${suffix} %@`, obj)
   },
   error(obj: any, suffix = "error", ...args: any[]) {
-    JSB.log(
-      `${MN.currentAddon.key}-${suffix} %@`,
-      String(obj) === "[object Object]"
-        ? JSON.stringify(obj, undefined, 2)
-        : String(obj)
-    )
+    if (self.useConsole)
+      console.error(obj, `${MN.currentAddon.key}-${suffix}`, ...args)
+    else
+      JSB.log(
+        `${MN.currentAddon.key}-${suffix} %@`,
+        String(obj) === "[object Object]"
+          ? JSON.stringify(obj, undefined, 2)
+          : String(obj)
+      )
   },
   /** Unrelated to the real meaning, used for stringify objects */
   assert(obj: any, suffix = "normal", ...args: any[]) {
-    JSB.log(
-      `${MN.currentAddon.key}-${suffix} %@`,
-      JSON.stringify(obj, undefined, 2)
-    )
+    if (self.useConsole)
+      console.log(obj, `${MN.currentAddon.key}-${suffix}`, ...args)
+    else
+      JSB.log(
+        `${MN.currentAddon.key}-${suffix} %@`,
+        JSON.stringify(obj, undefined, 2)
+      )
   }
 }
 

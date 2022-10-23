@@ -16,6 +16,7 @@
     "dist/**/*.d.ts"
   ],
   "devDependencies": {
+    "@types/node": "^18.11.3",
     "tsup": "^6.2.3"
   },
   "keywords": [
