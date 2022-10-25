@@ -280,9 +280,6 @@ export declare class MbBookNote {
    * Whether the image has been OCR to text
    */
   readonly textFirst: boolean
-  /**
-   * int
-   */
   readonly groupMode?: GroupMode
   /**
    * int

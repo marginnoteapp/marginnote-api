@@ -30,7 +30,7 @@ export const dev = {
   }
 }
 
-export function defineLifeCycleHandler(events: {
+export function defineLifecycleHandler(events: {
   instanceMethods?: Partial<JSExtensionLifeCycle.InstanceMethods>
   classMethods?: Partial<JSExtensionLifeCycle.ClassMethods>
 }) {
