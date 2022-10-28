@@ -34,14 +34,17 @@ class MNAPP {
     }
   }
   get currnetNotebookid() {
-    return Application.sharedInstance().studyController(
+    return Application.sharedInstance()?.studyController(
       Application.sharedInstance().focusWindow
-    ).notebookController.notebookId
+    )?.notebookController?.notebookId
   }
   get currentDocmd5() {
-    return Application.sharedInstance().studyController(
+    // 只要在笔记本内，就算没有文档，也会存在一个 docmd5，只是长度变为了 32 位随机。尽量让这个值固定，8 个 0，避免生成更多的无效配置。
+    const { docMd5 } = Application.sharedInstance()?.studyController(
       Application.sharedInstance().focusWindow
-    ).readerController.currentDocumentController.docMd5
+    )?.readerController?.currentDocumentController
+    if (docMd5 && docMd5.length === 32) return "00000000"
+    else return docMd5
   }
   readonly isMac = Application.sharedInstance().osType == OSType.macOS
   readonly isZH = NSLocale.preferredLanguages()?.[0].startsWith("zh")

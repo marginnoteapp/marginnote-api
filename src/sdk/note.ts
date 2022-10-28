@@ -54,21 +54,18 @@ export function removeHighlight(text: string) {
 }
 
 export function getDocURL() {
-  if (!MN.currnetNotebookid || MN.studyController.studyMode !== StudyMode.study)
+  if (
+    MN.studyController.studyMode !== StudyMode.study ||
+    !MN.currentDocmd5 ||
+    MN.currentDocmd5 === "00000000" ||
+    !MN.currnetNotebookid
+  )
     return
   const notebook = MN.db.getNotebookById(MN.currnetNotebookid)!
-  const note = MN.notebookController.mindmapView.mindmapNodes?.reduce(
-    (acc, k) => {
-      if (k.note.docMd5 === MN.currentDocmd5 && k.note.modifiedDate) {
-        if (acc?.modifiedDate) {
-          if (acc.modifiedDate < k.note.modifiedDate) return k.note
-        } else return k.note
-      }
-      return acc
-    },
-    undefined as undefined | MbBookNote
+  const note = notebook.notes?.find(
+    k => k.docMd5 === MN.currentDocmd5 && k.modifiedDate
   )
   return note?.noteId
     ? `marginnote3app://note/${note.noteId}`
-    : `marginnote3app://notebook/${notebook.topicId}`
+    : `marginnote3app://notebook/${MN.currnetNotebookid}`
 }

@@ -14,8 +14,9 @@ export const HUDController = {
   show(message: string, window = MN.currentWindow) {
     MN.app.waitHUDOnView(message, window)
   },
-  hidden(window = MN.currentWindow) {
+  hidden(message?: string, duration = 2, window = MN.currentWindow) {
     MN.app.stopWaitHUDOnView(window)
+    message && showHUD(message, duration, window)
   }
 }
 

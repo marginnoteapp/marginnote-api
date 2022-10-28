@@ -24,6 +24,12 @@ declare global {
   class NSNull {
     static new(): NSNull
   }
+  const NSUUID: {
+    UUID(): {
+      /** have \- */
+      UUIDString(): string
+    }
+  }
 }
 
 export * from "./NSData"

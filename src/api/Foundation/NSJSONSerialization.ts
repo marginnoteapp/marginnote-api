@@ -18,7 +18,7 @@ export const enum NSJSONReadingOptions {
 declare global {
   const NSJSONSerialization: {
     isValidJSONObject(obj: any): boolean
-    JSONObjectWithDataOptions(obj: any, data: NSJSONReadingOptions): any
+    JSONObjectWithDataOptions(data: NSData, options: NSJSONReadingOptions): any
     dataWithJSONObjectOptions(obj: any, options: NSJSONWritingOptions): NSData
   }
 }

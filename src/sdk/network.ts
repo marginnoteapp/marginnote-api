@@ -25,6 +25,9 @@ class Response {
     if (NSJSONSerialization.isValidJSONObject(res)) return res
     throw lang.not_JSON
   }
+  text(): string {
+    return ""
+  }
 }
 
 type RequestOptions = {
@@ -106,7 +109,6 @@ export function fetch(
         // UIApplication.sharedApplication().networkActivityIndicatorVisible = false
         // It's strange, I can't get the res property
         // if (err.localizedDescription) reject(err.localizedDescription)
-        if (data.length() == 0) reject(lang.not_receive)
         resolve(new Response(data))
       }
     )
