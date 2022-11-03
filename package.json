@@ -2,7 +2,7 @@
   "name": "marginnote",
   "description": "Type definitions of the latest MarginNote API.",
   "license": "MIT",
-  "version": "0.9.17",
+  "version": "0.9.18",
   "repository": "https://github.com/marginnoteapp/marginnote-api",
   "author": "MarginNote<https://github.com/marginnoteapp>",
   "main": "dist/index.js",
@@ -17,6 +17,7 @@
   ],
   "devDependencies": {
     "@types/node": "^18.11.3",
+    "@types/semver": "^7.3.13",
     "tsup": "^6.2.3"
   },
   "keywords": [
@@ -25,5 +26,8 @@
     "plugin",
     "typescript",
     "api"
-  ]
+  ],
+  "dependencies": {
+    "semver": "^7.3.8"
+  }
 }

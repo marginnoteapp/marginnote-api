@@ -209,6 +209,15 @@ export declare class StudyController extends UIViewController {
 
 export declare type Application = {
   /**
+   * @version 4.0.2(97)
+   * 4.0.2 is version, 97 is build num
+   */
+  readonly appVersion: string
+  /**
+   * @version 4.0.2(97)
+   */
+  readonly build: string
+  /**
    * Current theme
    */
   readonly currentTheme?: string

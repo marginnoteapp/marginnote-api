@@ -6,7 +6,7 @@ declare global {
       request: NSURLRequest,
       queue: NSOperationQueue,
       completionHandler: JSValue
-    ): void
+    ): NSURLRequest
     connectionWithRequest(request: NSURLRequest, delegate: any): NSURLConnection
   }
 }

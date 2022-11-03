@@ -106,9 +106,9 @@ export function fetch(
       request,
       queue,
       (res: NSHTTPURLResponse, data: NSData, err: NSError) => {
-        // UIApplication.sharedApplication().networkActivityIndicatorVisible = false
         // It's strange, I can't get the res property
-        // if (err.localizedDescription) reject(err.localizedDescription)
+        // @ts-ignorees.statusCode))
+        if (err.localizedDescription) reject(err.localizedDescription)
         resolve(new Response(data))
       }
     )
