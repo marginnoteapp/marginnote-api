@@ -1,4 +1,4 @@
-import { JSExtensionLifeCycle } from "src/api"
+import { JSExtensionLifeCycle, UserInfo } from "src/api"
 import { MN } from "./mn"
 
 export const dev = {
@@ -62,12 +62,11 @@ export function eventHandlerController(
   return { add, remove }
 }
 
-export function defineEventHandlers<K extends string>(
-  h: Record<
-    K extends `on${string}` ? K : `on${K}`,
-    (sener: { userInfo: Record<string, any> }) => void
-  >
-) {
+export function defineEventHandlers<K extends string>(h: {
+  [M in K extends `on${string}` ? K : `on${K}`]: (sener: {
+    userInfo: UserInfo<M>
+  }) => void
+}) {
   return h
 }
 

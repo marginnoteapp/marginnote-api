@@ -18,6 +18,7 @@ class Response {
     this.data = data
   }
   json(): any {
+    if (this.data.length() === 0) return {}
     const res = NSJSONSerialization.JSONObjectWithDataOptions(
       this.data,
       NSJSONReadingOptions.MutableContainers
@@ -26,6 +27,7 @@ class Response {
     throw lang.not_JSON
   }
   text(): string {
+    if (this.data.length() === 0) return ""
     return ""
   }
 }
