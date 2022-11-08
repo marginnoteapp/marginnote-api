@@ -5,6 +5,7 @@ import type {
   NSError
 } from "../api"
 import { NSJSONWritingOptions, NSJSONReadingOptions } from "../api"
+import { genURL } from "./common"
 import { lang } from "./lang"
 
 type XOR<T, U> = T | U extends object
@@ -48,12 +49,7 @@ function initRequest(
   url: string,
   options: RequestOptions
 ): NSMutableURLRequest {
-  url = url.trimStart()
-  if (!/^\w+:\/\/[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]/.test(url))
-    url = `https://${url}`
-  const request = NSMutableURLRequest.requestWithURL(
-    NSURL.URLWithString(encodeURI(url))
-  )
+  const request = NSMutableURLRequest.requestWithURL(genURL(url))
   request.setHTTPMethod(options.method ?? "GET")
   request.setTimeoutInterval(options.timeout ?? 3)
   const headers = {
@@ -67,13 +63,11 @@ function initRequest(
   )
   if (options.search) {
     request.setURL(
-      NSURL.URLWithString(
-        encodeURI(
-          `${url}?${Object.entries(options.search).reduce((acc, cur) => {
-            const [key, value] = cur
-            return `${acc ? acc + "&" : ""}${key}=${value}`
-          }, "")}`
-        )
+      genURL(
+        `${url.trim()}?${Object.entries(options.search).reduce((acc, cur) => {
+          const [key, value] = cur
+          return `${acc ? acc + "&" : ""}${key}=${encodeURIComponent(value)}`
+        }, "")}`
       )
     )
   } else if (options.form) {

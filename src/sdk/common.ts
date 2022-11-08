@@ -42,13 +42,26 @@ export function evaluateJavaScript(webView: UIWebView, script: string) {
   )
 }
 
-export function openUrl(url: string) {
-  url = url.trimStart()
-  if (
-    !/^[\w-]+:\/\/[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]/.test(url)
-  )
-    url = `https://${url}`
-  MN.app.openURL(NSURL.URLWithString(encodeURI(url)))
+/**
+ *
+ * @param url
+ * @param encode default false
+ * @returns
+ */
+export function genURL(url: string, encode = false) {
+  url = url.trim()
+  if (!/^[\w\-]+:\/\//.test(url)) url = `https://${url}`
+  return NSURL.URLWithString(encode ? encodeURI(url) : url)
+}
+
+/**
+ *
+ * @param url
+ * @param encode default false
+ * @returns
+ */
+export function openUrl(url: string, encode = false) {
+  MN.app.openURL(genURL(url, encode))
 }
 
 export function postNotification(key: string, userInfo: any) {

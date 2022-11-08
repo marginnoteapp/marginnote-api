@@ -273,7 +273,7 @@ declare global {
     /**
      * @param URLString NSString*
      */
-    URLWithString(URLString: string): any
+    URLWithString(URLString: string): NSURL
     /**
      * @param URLString NSString*
      * @param baseURL NSURL*

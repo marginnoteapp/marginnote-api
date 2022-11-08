@@ -1,6 +1,10 @@
 import { StudyMode, MbBookNote } from "../api"
 import { MN, postNotification } from "."
 
+export function isNoteLink(url: string) {
+  return url.startsWith("marginnote3app://note/")
+}
+
 export function isNoteExist(note: MbBookNote | string) {
   if (typeof note === "string") return MN.db.getNoteById(note) ? true : false
   else return MN.db.getNoteById(note.noteId) ? true : false
