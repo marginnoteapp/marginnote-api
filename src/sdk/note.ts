@@ -54,7 +54,8 @@ export function RefreshAfterDBChange() {
  * @returns Processed text.
  */
 export function removeHighlight(text: string) {
-  return text.replace(/\*\*/g, "")
+  if (text) return text.replace(/\*\*/g, "")
+  return text
 }
 
 export function getDocURL() {
