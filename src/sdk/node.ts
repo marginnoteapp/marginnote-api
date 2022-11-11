@@ -126,7 +126,7 @@ export class NodeNote {
     )
   }
   set titles(titles: string[]) {
-    const newTitle = unique(titles).join("; ")
+    const newTitle = unique(titles, true).join("; ")
     if (this.note.excerptText === this.note.noteTitle) {
       this.note.noteTitle = newTitle
       this.note.excerptText = newTitle
@@ -152,10 +152,10 @@ export class NodeNote {
     this.note.excerptText = text
   }
   get titles() {
-    return unique(this.note.noteTitle?.split(/\s*[;；]\s*/) ?? [])
+    return unique(this.note.noteTitle?.split(/\s*[;；]\s*/) ?? [], true)
   }
   appendTitles(...titles: string[]) {
-    const newTitle = unique([...this.titles, ...titles]).join("; ")
+    const newTitle = unique([...this.titles, ...titles], true).join("; ")
     if (this.note.excerptText === this.note.noteTitle) {
       this.note.noteTitle = newTitle
       this.note.excerptText = newTitle
@@ -175,7 +175,7 @@ export class NodeNote {
   }
   set tags(tags: string[]) {
     this.tidyupTags()
-    tags = unique(tags)
+    tags = unique(tags, true)
     const lastComment = this.note.comments[this.note.comments.length - 1]
     if (lastComment?.type == "TextNote" && lastComment.text.startsWith("#")) {
       this.note.removeCommentByIndex(this.note.comments.length - 1)
@@ -184,7 +184,7 @@ export class NodeNote {
   }
   appendTags(...tags: string[]) {
     this.tidyupTags()
-    tags = unique([...this.tags, ...tags])
+    tags = unique([...this.tags, ...tags], true)
     const lastComment = this.note.comments[this.note.comments.length - 1]
     if (lastComment?.type == "TextNote" && lastComment.text.startsWith("#")) {
       this.note.removeCommentByIndex(this.note.comments.length - 1)
@@ -353,7 +353,7 @@ export class NodeNote {
     return retVal
   }
   appendTextComments(...comments: string[]) {
-    comments = unique(comments)
+    comments = unique(comments, true)
     const existComments = this.note.comments.filter(k => k.type === "TextNote")
     comments.forEach(comment => {
       if (

@@ -48,11 +48,9 @@ class MNAPP {
    * @version 4.0.2(97)
    */
   readonly version = this.app.appVersion ?? "3.7.21"
-  readonly buildNum = this.app.build ? Number(this.app.build) : 96
   readonly isMNE = gte(this.version, "4.0.0")
   readonly isMac = this.app.osType == OSType.macOS
-  readonly isMacMNE =
-    this.isMac && gte(this.version, "4.0.2") && this.buildNum >= 97
+  readonly isMacMNE = this.isMac && gte(this.version, "4.0.2")
   readonly isMacMN3 = this.isMac && !this.isMacMNE
   readonly themeColor = {
     Gray: UIColor.colorWithHexString("#414141"),
