@@ -17,7 +17,8 @@ class MNAPP {
     return this.app.focusWindow
   }
   get currentThemeColor(): UIColor {
-    return this.themeColor[this.app.currentTheme!]
+    const { themeColor } = this
+    return this.themeColor[this.app.currentTheme! as keyof typeof themeColor]
   }
   get currentAddon() {
     return {

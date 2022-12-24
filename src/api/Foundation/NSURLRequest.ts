@@ -11,11 +11,11 @@ declare global {
 }
 
 export declare type NSURLRequest = {
-  URL: NSURL
+  URL(): NSURL
   setURL(url: NSURL): void
 }
 export declare type NSMutableURLRequest = {
-  HTTPMethod: string
+  HTTPMethod(): string
   setURL(url: NSURL): void
   setValueForHTTPHeaderField(value: string, field: string): void
   setAllHTTPHeaderFields(headerFields: NSDictionary): void

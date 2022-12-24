@@ -28,7 +28,7 @@ function getNoteExcerptTextPic(note: MbBookNote) {
     const imgs = exportPic(note.excerptPic)
     if (imgs)
       Object.entries(imgs).forEach(([k, v]) => {
-        if (k in acc) acc[k].push(v)
+        if (k in acc) acc[k as keyof typeof acc].push(v)
       })
     if (text) {
       acc.ocr.push(text)
@@ -235,7 +235,7 @@ export class NodeNote {
     return this.notes.reduce(
       (acc, cur) => {
         Object.entries(getNoteExcerptTextPic(cur)).forEach(([k, v]) => {
-          if (k in acc) acc[k].push(v)
+          if (k in acc) acc[k as keyof typeof acc].push(...v)
         })
         return acc
       },
@@ -253,7 +253,7 @@ export class NodeNote {
           const imgs = exportPic(cur)
           if (imgs)
             Object.entries(imgs).forEach(([k, v]) => {
-              if (k in acc) acc[k].push(v)
+              if (k in acc) acc[k as keyof typeof acc].push(v)
             })
         } else if (cur.type == "TextNote" || cur.type == "HtmlNote") {
           const text = cur.text.trim()
@@ -296,7 +296,7 @@ export class NodeNote {
         const imgs = exportPic(k)
         if (imgs)
           Object.entries(imgs).forEach(([k, v]) => {
-            if (k in retVal) retVal[k].push(v)
+            if (k in retVal) retVal[k as keyof typeof retVal].push(v)
           })
       } else if (k.type == "TextNote" || k.type == "HtmlNote") {
         const text = k.text.trim()
@@ -305,7 +305,7 @@ export class NodeNote {
         const note = MN.db.getNoteById(k.noteid)
         if (note)
           Object.entries(getNoteExcerptTextPic(note)).forEach(([k, v]) => {
-            if (k in retVal) retVal[k].push(v)
+            if (k in retVal) retVal[k as keyof typeof retVal].push(...v)
           })
       }
     })
