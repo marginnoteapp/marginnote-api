@@ -1,6 +1,6 @@
 import { OSType } from "../api"
 import type { UIColor } from "../api"
-import { gte } from "semver"
+import gte from "semver/functions/gte"
 
 class MNAPP {
   readonly app = Application.sharedInstance()
